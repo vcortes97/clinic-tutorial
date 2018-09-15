@@ -1,12 +1,15 @@
-% test script
-t=0:pi/64:2*pi;
-fs=1/(pi/64);
-x1=sin(2*pi*t);
-y1=2*sin(2*pi*t)+4*sin(pi*t);
+% This tests whether the impulse_response.m function works
 
-plot(t,x1)
+fs=10;
+t=-1:1/fs:1;
+x=cos(2*pi*t);    % input signal
+y=3*cos(2*pi*t);  % output signal
+[h,t]=impulse_response(x,y,fs);   % we expect the impulse response to be
+amplitude=(1/fs)*trapz(h)         % a dirac delta with amplitude 3
+
+plot(t,x)
 hold on
-plot(t,y1)
-impulse_response(x1,y1,fs);
+plot(t,y)
+impulse_response(x,y,fs);
 xlabel("Time (s)");
 ylabel("Response");
